@@ -40,12 +40,13 @@ export default function TestEnv() {
   const handleSubmit = async () => {
     const res = await axios.post("http://localhost:3000/api/codes/", {
       code: code,
-      testcases: problem.testcases,
     });
 
-    const results = res.data.results;
-    setResults(results);
+    const results = res.data;
+    console.log(results);
   };
+
+  const handleRun = async () => {};
 
   return (
     <div className="flex bg-background">
@@ -255,25 +256,40 @@ export default function TestEnv() {
               Visual Basic.Net (vbnc 0.0.0.5943)
             </option>
           </select>
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M12 20q-3.35 0-5.675-2.325T4 12q0-3.35 2.325-5.675T12 4q1.725 0 3.3.712T18 6.75V4h2v7h-7V9h4.2q-.8-1.4-2.188-2.2T12 6Q9.5 6 7.75 7.75T6 12q0 2.5 1.75 4.25T12 18q1.925 0 3.475-1.1T17.65 14h2.1q-.7 2.65-2.85 4.325T12 20Z"/></svg>
-          <button className="submitbtn bg-gray-500 mr-1 text-text py-1.5 px-5 rounded-md text-center" onClick={handleSubmit}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M12 20q-3.35 0-5.675-2.325T4 12q0-3.35 2.325-5.675T12 4q1.725 0 3.3.712T18 6.75V4h2v7h-7V9h4.2q-.8-1.4-2.188-2.2T12 6Q9.5 6 7.75 7.75T6 12q0 2.5 1.75 4.25T12 18q1.925 0 3.475-1.1T17.65 14h2.1q-.7 2.65-2.85 4.325T12 20Z"
+            />
+          </svg>
+          <button
+            className="submitbtn bg-gray-500 mr-1 text-text py-1.5 px-5 rounded-md text-center"
+            onClick={handleRun}
+          >
             Run
-            </button>
-          <button className="submitbtn bg-primary  text-text py-1.5 px-5 rounded-md text-center" onClick={handleSubmit}>
+          </button>
+          <button
+            className="submitbtn bg-primary  text-text py-1.5 px-5 rounded-md text-center"
+            onClick={handleSubmit}
+          >
             Submit
-            </button>
-          
+          </button>
         </div>
         <Editor
           height="400px"
           width="100%"
-          defaultLanguage="javascript"
+          defaultLanguage="python"
           defaultValue={code}
           theme="vs-dark"
           onChange={handleEditorCode}
         />
         <div className="test-area w-full h-32 rounded pl-2 pt-2 bg-blue-300">
-          <h1 >
+          <h1>
             Memory consumed :{" "}
             {results != null ? results.memory : "Nothing here"}
           </h1>
@@ -283,44 +299,121 @@ export default function TestEnv() {
           </h1>
         </div>
       </div>
-      <div className="bg-282828 rounded h-full mr-3 overflow-y-auto" id="description" style={{ height: "calc(100vh - 85px)" }}>
-      <div className="toolbar3  text-center  w-full rounded-t h-[50px] bg-gray-400 flex items-center justify-end gap-5 px-4">
+      <div
+        className="bg-282828 rounded h-full mr-3 overflow-y-auto"
+        id="description"
+        style={{ height: "calc(100vh - 85px)" }}
+      >
+        <div className="toolbar3  text-center  w-full rounded-t h-[50px] bg-gray-400 flex items-center justify-end gap-5 px-4">
           <a href="#">Description</a>
           <a href="#">Editorial</a>
           <a href="#">Solutions</a>
           <a href="#">Submissions</a>
-          </div>
+        </div>
         <div className="description text-text pt-4 pl-3">
           <div className="question-head flex flex-col items-start">
-            <a className="text-lg mb-2">3. Longest Substring Without Repeating Characters</a>
+            <a className="text-lg mb-2">
+              3. Longest Substring Without Repeating Characters
+            </a>
           </div>
           <div className="flex justify-start items-center text-center gap-5">
             <h3 className=" text-base text-yellow-400 ">Medium</h3>
-            <a href="#" className="like mr-5"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256"><path fill="currentColor" d="M234 80.12A24 24 0 0 0 216 72h-56V56a40 40 0 0 0-40-40a8 8 0 0 0-7.16 4.42L75.06 96H32a16 16 0 0 0-16 16v88a16 16 0 0 0 16 16h172a24 24 0 0 0 23.82-21l12-96A24 24 0 0 0 234 80.12M32 112h40v88H32Zm191.94-15l-12 96a8 8 0 0 1-7.94 7H88v-94.11l36.71-73.43A24 24 0 0 1 144 56v24a8 8 0 0 0 8 8h64a8 8 0 0 1 7.94 9"/></svg></a>
-            <a href="#" className="dislike mr-5"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256"><path fill="currentColor" d="m239.82 157l-12-96A24 24 0 0 0 204 40H32a16 16 0 0 0-16 16v88a16 16 0 0 0 16 16h43.06l37.78 75.58A8 8 0 0 0 120 240a40 40 0 0 0 40-40v-16h56a24 24 0 0 0 23.82-27M72 144H32V56h40Zm150 21.29a7.88 7.88 0 0 1-6 2.71h-64a8 8 0 0 0-8 8v24a24 24 0 0 1-19.29 23.54L88 150.11V56h116a8 8 0 0 1 7.94 7l12 96a7.87 7.87 0 0 1-1.94 6.29"/></svg></a>
+            <a href="#" className="like mr-5">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 256 256"
+              >
+                <path
+                  fill="currentColor"
+                  d="M234 80.12A24 24 0 0 0 216 72h-56V56a40 40 0 0 0-40-40a8 8 0 0 0-7.16 4.42L75.06 96H32a16 16 0 0 0-16 16v88a16 16 0 0 0 16 16h172a24 24 0 0 0 23.82-21l12-96A24 24 0 0 0 234 80.12M32 112h40v88H32Zm191.94-15l-12 96a8 8 0 0 1-7.94 7H88v-94.11l36.71-73.43A24 24 0 0 1 144 56v24a8 8 0 0 0 8 8h64a8 8 0 0 1 7.94 9"
+                />
+              </svg>
+            </a>
+            <a href="#" className="dislike mr-5">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 256 256"
+              >
+                <path
+                  fill="currentColor"
+                  d="m239.82 157l-12-96A24 24 0 0 0 204 40H32a16 16 0 0 0-16 16v88a16 16 0 0 0 16 16h43.06l37.78 75.58A8 8 0 0 0 120 240a40 40 0 0 0 40-40v-16h56a24 24 0 0 0 23.82-27M72 144H32V56h40Zm150 21.29a7.88 7.88 0 0 1-6 2.71h-64a8 8 0 0 0-8 8v24a24 24 0 0 1-19.29 23.54L88 150.11V56h116a8 8 0 0 1 7.94 7l12 96a7.87 7.87 0 0 1-1.94 6.29"
+                />
+              </svg>
+            </a>
           </div>
         </div>
         <div className="question flex flex-col text-text pl-3 pt-4">
-          <h3 className="mb-4">Given a string s, find the length of the longest substring without repeating characters.</h3>
+          <h3 className="mb-4">
+            Given a string s, find the length of the longest substring without
+            repeating characters.
+          </h3>
           <h4 className="font-bold my-2">Example 1:</h4>
-          <h4 className="pl-2 flex gap-2"><h4 className="font-bold">Input:</h4>s = "abcabcbb"</h4>
-          <h4 className="pl-2 flex gap-2"><h4 className="font-bold">Output:</h4>3</h4>
-          <h4 className="pl-2 flex gap-2"><h4 className="font-bold">Explanation:</h4>The answer is "abc", with the length of 3.</h4>
+          <h4 className="pl-2 flex gap-2">
+            <h4 className="font-bold">Input:</h4>s = "abcabcbb"
+          </h4>
+          <h4 className="pl-2 flex gap-2">
+            <h4 className="font-bold">Output:</h4>3
+          </h4>
+          <h4 className="pl-2 flex gap-2">
+            <h4 className="font-bold">Explanation:</h4>The answer is "abc", with
+            the length of 3.
+          </h4>
           <h4 className="font-bold my-3">Example 2:</h4>
-          <h4 className="pl-2 flex gap-2"><h4 className="font-bold">Input:</h4>s = "bbbbb"</h4>
-          <h4 className="pl-2 flex gap-2"><h4 className="font-bold">Output:</h4>1</h4>
-          <h4 className="pl-2 flex gap-2"><h4 className="font-bold">Explanation:</h4>The answer is "b", with the length of 1.</h4>
+          <h4 className="pl-2 flex gap-2">
+            <h4 className="font-bold">Input:</h4>s = "bbbbb"
+          </h4>
+          <h4 className="pl-2 flex gap-2">
+            <h4 className="font-bold">Output:</h4>1
+          </h4>
+          <h4 className="pl-2 flex gap-2">
+            <h4 className="font-bold">Explanation:</h4>The answer is "b", with
+            the length of 1.
+          </h4>
           <h4 className="font-bold my-3">Example 3:</h4>
-          <h4 className="pl-2 flex gap-2"><h4 className="font-bold">Input:</h4>s = "pwwkew"</h4>
-          <h4 className="pl-2 flex gap-2"><h4 className="font-bold">Output:</h4>3</h4>
-          <h4 className="pl-2 flex gap-2"><h4 className="font-bold">Explanation:</h4>The answer is "wke", with the length of 3.Notice that the answer must be a substring, "pwke" is a subsequence and not a substring.</h4>
+          <h4 className="pl-2 flex gap-2">
+            <h4 className="font-bold">Input:</h4>s = "pwwkew"
+          </h4>
+          <h4 className="pl-2 flex gap-2">
+            <h4 className="font-bold">Output:</h4>3
+          </h4>
+          <h4 className="pl-2 flex gap-2">
+            <h4 className="font-bold">Explanation:</h4>The answer is "wke", with
+            the length of 3.Notice that the answer must be a substring, "pwke"
+            is a subsequence and not a substring.
+          </h4>
           <div className="mt-12 flex justify-between items-center">
             <h4>Similar Questions</h4>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M12 14.975q-.2 0-.375-.062T11.3 14.7l-4.6-4.6q-.275-.275-.275-.7t.275-.7q.275-.275.7-.275t.7.275l3.9 3.9l3.9-3.9q.275-.275.7-.275t.7.275q.275.275.275.7t-.275.7l-4.6 4.6q-.15.15-.325.213t-.375.062"/></svg></div>
-            <hr className="border-gray-800 mt-2 mr-1"></hr>
-            <div className="mt-3 mb-4 flex justify-between items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M12 14.975q-.2 0-.375-.062T11.3 14.7l-4.6-4.6q-.275-.275-.275-.7t.275-.7q.275-.275.7-.275t.7.275l3.9 3.9l3.9-3.9q.275-.275.7-.275t.7.275q.275.275.275.7t-.275.7l-4.6 4.6q-.15.15-.325.213t-.375.062"
+              />
+            </svg>
+          </div>
+          <hr className="border-gray-800 mt-2 mr-1"></hr>
+          <div className="mt-3 mb-4 flex justify-between items-center">
             <h4>Related Topics</h4>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M12 14.975q-.2 0-.375-.062T11.3 14.7l-4.6-4.6q-.275-.275-.275-.7t.275-.7q.275-.275.7-.275t.7.275l3.9 3.9l3.9-3.9q.275-.275.7-.275t.7.275q.275.275.275.7t-.275.7l-4.6 4.6q-.15.15-.325.213t-.375.062"/></svg></div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M12 14.975q-.2 0-.375-.062T11.3 14.7l-4.6-4.6q-.275-.275-.275-.7t.275-.7q.275-.275.7-.275t.7.275l3.9 3.9l3.9-3.9q.275-.275.7-.275t.7.275q.275.275.275.7t-.275.7l-4.6 4.6q-.15.15-.325.213t-.375.062"
+              />
+            </svg>
+          </div>
         </div>
       </div>
     </div>

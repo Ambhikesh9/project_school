@@ -49,7 +49,7 @@ export default function TestEnv() {
   const handleRun = async () => {};
 
   return (
-    <div className="flex bg-background">
+    <div className="flex bg-background w-screen">
       <div className="flex flex-col pl-2" id="activity">
         <div className="toolbar w-full rounded-t h-[50px] bg-gray-400 flex items-center justify-end px-4 gap-x-3">
           <select
@@ -288,15 +288,21 @@ export default function TestEnv() {
           theme="vs-dark"
           onChange={handleEditorCode}
         />
-        <div className="test-area w-full h-32 rounded pl-2 pt-2 bg-blue-300">
-          <h1>
-            Memory consumed :{" "}
-            {results != null ? results.memory : "Nothing here"}
-          </h1>
-          <h1>
-            Status consumed :{" "}
-            {results != null ? results.status.description : "Nothing here"}
-          </h1>
+        <div className="test-area w-full h-56 text-text rounded   mt-3 bg-262626 ">
+        <div className="toolbar w-full rounded-t h-[40px] bg-gray-400 flex items-center justify-end px-4 gap-x-3">
+          <a href="#" className="text-black">
+            Testcases
+          </a>
+          </div>
+          <div className=" w-full pl-4 pt-4 flex flex-col">
+          <div className="flex flex-row gap-x-5 mb-3">
+            <a href="#" className="rounded-md bg-[#3c3c3c] font-semibold text-center  px-2.5 py-0.5 hover:bg-[#454545]">Case 1</a>
+            <a href="#" className="rounded  font-semibold text-center  px-2.5 py-0.5 hover:bg-[#454545]">Case 2</a>
+            <a href="#" className="rounded  font-semibold text-center  px-2.5 py-0.5 hover:bg-[#454545]">Case 3</a>
+          </div>
+          <div className="text-sm">s = </div>
+          <div className="w-9/10  mt-1 mb-4 py-3 mr-3 pl-3 bg-[#3c3c3c] rounded-md text-center flex items-center"> "abcabcbb"</div>
+          </div>
         </div>
       </div>
       <div

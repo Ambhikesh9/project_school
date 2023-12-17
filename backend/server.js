@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import codeRoutes from "./routes/codeRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import connectDB from "./config/db.js";
@@ -23,6 +24,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.use("/api/codes", codeRoutes);
+
+app.use('/api/users', userRoutes);
+
 app.use("/api/problems", problemRoutes);
 app.use(errorHandler);
 

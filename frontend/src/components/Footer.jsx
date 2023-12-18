@@ -2,7 +2,7 @@ export default function Footer(){
 
     return (
         <>
-        <div className="bottom-0 w-screen h-64 relative bg-background text-text px-6 font-poppins flex flex-col">
+        <div className="pt-6 bottom-0 w-screen h-64 relative bg-background text-text px-6 font-poppins flex flex-col">
             <div className="row1 h-2/3 w-3/4 mx-auto  border-b  border-gray-600  flex justify-between gap-4 flex-row items-center">
                 <div className="row1col1  mr-2 flex flex-col text-left">
                     <a className="pb-3 text-xl" href="#">XYO Socials</a>

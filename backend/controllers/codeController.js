@@ -5,45 +5,94 @@ import axios from "axios";
 const postCodes = asyncHandler(async (req, res) => {
   const code = req.body.code;
 
-  const testCases = [
+  const testcases = [
     {
-      language_id: 63,
       source_code: code,
-      stdin: "", // Input for the first test case
-      expected_output: "15\n", // Expected output for the first test case
+      language_id: 71,
+      stdin: "7\n8\n",
+      expected_output: "15\n",
     },
-    {
-      language_id: 63,
-      source_code: code,
-      stdin: "5\n10\n", // Input for the second test case
-      expected_output: "15\n", // Expected output for the second test case
-    },
-    // Add more test cases as needed
   ];
 
   try {
-    const results = [];
+    const judgeserver = process.env.JUDGE0_SERVER;
 
-    for (const testCase of testCases) {
-      const judgeToken = await axios.post(
-        "http://localhost:6000/submissions",
-        testCase
-      );
+    const tokens = [];
 
-      const token = judgeToken.data.token;
+    for (const testcase of testcases) {
+      const postres = await axios.post(`${judgeserver}/submissions`, testcase);
 
-      const judgeResponse = await axios.get(
-        `http://localhost:6000/submissions/${token}`
-      );
-
-      results.push(judgeResponse.data);
+      tokens.push(postres.data.token);
     }
 
-    res.status(200).json({ results });
+    setTimeout(async () => {
+      const results = [];
+      for (const token of tokens) {
+        const tokenres = await axios.get(`${judgeserver}/submissions/${token}`);
+        results.push(tokenres.data);
+      }
+
+      return res.json(results);
+    }, 7000);
   } catch (error) {
-    console.error("Error submitting code:", error);
-    res.status(500).json({ error: "Failed to run test cases" });
+    return res.json({ error: error.message });
   }
 });
 
-export { postCodes };
+const postCodesConcept = asyncHandler(async (req, res) => {
+  const code = req.body.code;
+  const concept = req.body.concept;
+  try {
+    const conceptcheck = await axios.post(process.env.GEMINI_API, {
+      prompt: {
+        text: `Does this ${code} uses the ${concept} in the code? Answer me in only one word. YES/NO`,
+      },
+    });
+
+    if (conceptcheck.data.candidates[0].output == "YES") {
+      const testcases = [
+        {
+          source_code: "x = 5\nif True:\n  while True:\n    pass",
+          language_id: 71,
+          stdin: "7\n8\n",
+          expected_output: "15\n",
+        },
+      ];
+
+      try {
+        const judgeserver = process.env.JUDGE0_SERVER;
+
+        const tokens = [];
+
+        for (const testcase of testcases) {
+          const postres = await axios.post(
+            `${judgeserver}/submissions`,
+            testcase
+          );
+
+          tokens.push(postres.data.token);
+        }
+
+        setTimeout(async () => {
+          const results = [];
+          for (const token of tokens) {
+            const tokenres = await axios.get(
+              `${judgeserver}/submissions/${token}`
+            );
+            results.push(tokenres.data);
+          }
+
+          return res.json("correct");
+        }, 7000);
+      } catch (error) {
+        return res.json({ error: error.message });
+      }
+    } else {
+      throw new Error("Use the correct concept in the code");
+    }
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+});
+
+export { postCodes, postCodesConcept };
